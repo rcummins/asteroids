@@ -1,5 +1,5 @@
-const MovingObject = require("./moving_object.js");
-window.MovingObject = MovingObject;
+const Asteroid = require("./asteroid.js");
+window.Asteroid = Asteroid;
 
 document.addEventListener("DOMContentLoaded", function() {
   window.ctx = document.getElementById("game-canvas").getContext('2d');
