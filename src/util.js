@@ -11,6 +11,12 @@ const Util = {
 
   scale(vector, m) {
     return [vector[0] * m, vector[1] * m];
+  },
+
+  distance(pos1, pos2) {
+    let xDist = pos1[0] - pos2[0];
+    let yDist = pos1[1] - pos2[1];
+    return Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
   }
 };
 
