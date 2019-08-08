@@ -108,6 +108,17 @@ eval("const Asteroid = __webpack_require__(/*! ./asteroid.js */ \"./src/asteroid
 
 /***/ }),
 
+/***/ "./src/game_view.js":
+/*!**************************!*\
+  !*** ./src/game_view.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const Game = __webpack_require__(/*! ./game.js */ \"./src/game.js\");\n\nfunction GameView(ctx) {\n  this.game = new Game();\n  this.ctx = ctx;\n}\n\nGameView.prototype.start = function() {\n  let gameView = this;\n  setInterval( function() {\n    gameView.game.moveObjects();\n    gameView.game.draw(gameView.ctx);\n  }, 20);\n};\n\nmodule.exports = GameView;\n\n\n//# sourceURL=webpack:///./src/game_view.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -115,7 +126,7 @@ eval("const Asteroid = __webpack_require__(/*! ./asteroid.js */ \"./src/asteroid
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const Game = __webpack_require__(/*! ./game.js */ \"./src/game.js\");\nwindow.Game = Game;\n\ndocument.addEventListener(\"DOMContentLoaded\", function() {\n  window.ctx = document.getElementById(\"game-canvas\").getContext('2d');\n});\n\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("const GameView = __webpack_require__(/*! ./game_view.js */ \"./src/game_view.js\");\n\ndocument.addEventListener(\"DOMContentLoaded\", function() {\n  window.ctx = document.getElementById(\"game-canvas\").getContext('2d');\n  const gameView = new GameView(ctx);\n  gameView.start();\n});\n\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
