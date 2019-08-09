@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const Util = __webpack_require__(/*! ./util.js */ \"./src/util.js\");\nconst MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src/moving_object.js\");\n\nfunction Asteroid(game, pos) {\n  MovingObject.call(\n    this,\n    {game: game,\n      pos: pos,\n      vel: Util.randomVec(5),\n      radius: Asteroid.RADIUS,\n      color: Asteroid.COLOR});\n}\n\nAsteroid.RADIUS = 20;\nAsteroid.COLOR = \"gray\";\n\nUtil.inherits(Asteroid, MovingObject);\n\nmodule.exports = Asteroid;\n\n//# sourceURL=webpack:///./src/asteroid.js?");
+eval("const Util = __webpack_require__(/*! ./util.js */ \"./src/util.js\");\nconst MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src/moving_object.js\");\nconst Ship = __webpack_require__(/*! ./ship.js */ \"./src/ship.js\");\n\nfunction Asteroid(game, pos) {\n  MovingObject.call(\n    this,\n    {game: game,\n      pos: pos,\n      vel: Util.randomVec(5),\n      radius: Asteroid.RADIUS,\n      color: Asteroid.COLOR});\n}\n\nAsteroid.RADIUS = 20;\nAsteroid.COLOR = \"gray\";\n\nUtil.inherits(Asteroid, MovingObject);\n\nAsteroid.prototype.collideWith = function(otherObject) {\n  if (otherObject instanceof Ship) {\n    otherObject.relocate();\n  }\n};\n\nmodule.exports = Asteroid;\n\n//# sourceURL=webpack:///./src/asteroid.js?");
 
 /***/ }),
 
@@ -148,7 +148,7 @@ eval("const Util = __webpack_require__(/*! ./util.js */ \"./src/util.js\");\n\nf
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const Util = __webpack_require__(/*! ./util.js */ \"./src/util.js\");\nconst MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src/moving_object.js\");\n\nfunction Ship(game, pos) {\n  MovingObject.call(\n    this, \n    {game: game,\n      pos: pos,\n      vel: [0, 0],\n      radius: Ship.RADIUS,\n      color: Ship.COLOR}\n  );\n}\n\nShip.RADIUS = 20;\nShip.COLOR = 'Orange';\n\nUtil.inherits(Ship, MovingObject);\n\nmodule.exports = Ship;\n\n//# sourceURL=webpack:///./src/ship.js?");
+eval("const Util = __webpack_require__(/*! ./util.js */ \"./src/util.js\");\nconst MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src/moving_object.js\");\n\nfunction Ship(game, pos) {\n  MovingObject.call(\n    this, \n    {game: game,\n      pos: pos,\n      vel: [0, 0],\n      radius: Ship.RADIUS,\n      color: Ship.COLOR}\n  );\n}\n\nShip.RADIUS = 20;\nShip.COLOR = 'Orange';\n\nUtil.inherits(Ship, MovingObject);\n\nShip.prototype.relocate = function() {\n  this.pos = this.game.randomPosition();\n  this.vel = [0, 0];\n};\n\nmodule.exports = Ship;\n\n//# sourceURL=webpack:///./src/ship.js?");
 
 /***/ }),
 
