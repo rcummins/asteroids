@@ -71,26 +71,9 @@ Game.prototype.randomPosition = function () {
 
 Game.prototype.remove = function(object) {
   if (object instanceof Asteroid) {
-    let remainingAsteroids = [];
-
-    for (let i = 0; i < this.asteroids.length; i++) {
-      if (this.asteroids[i] !== object) {
-        remainingAsteroids.push(this.asteroids[i]);
-      }
-    }
-
-    this.asteroids = remainingAsteroids;
-
+    this.asteroids.splice(this.asteroids.indexOf(object), 1);
   } else if (object instanceof Bullet) {
-    let remainingBullets = [];
-
-    for (let i = 0; i < this.bullets.length; i++) {
-      if (this.bullets[i] !== object) {
-        remainingBullets.push(this.bullets[i]);
-      }
-    }
-
-    this.bullets = remainingBullets;
+    this.bullets.splice(this.bullets.indexOf(object), 1);
   }
 };
 
