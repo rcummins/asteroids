@@ -52,6 +52,10 @@ Game.prototype.draw = function(ctx) {
   });
 };
 
+Game.prototype.isOutOfBounds = function(pos) {
+  return pos[0] < 0 || pos[1] < 0 || pos[0] > Game.DIM_X || pos[1] > Game.DIM_Y;
+};
+
 Game.prototype.moveObjects = function() {
   this.allObjects().forEach( function(object) {
     object.move();
@@ -62,28 +66,29 @@ Game.prototype.randomPosition = function () {
   return [Game.DIM_X * Math.random(), Game.DIM_Y * Math.random()];
 };
 
-Game.prototype.removeAsteroid = function(asteroid) {
-  let remainingAsteroids = [];
+Game.prototype.remove = function(object) {
+  if (object instanceof Asteroid) {
+    let remainingAsteroids = [];
 
-  for (let i = 0; i < this.asteroids.length; i++) {
-    if (this.asteroids[i] !== asteroid) {
-      remainingAsteroids.push(this.asteroids[i]);
+    for (let i = 0; i < this.asteroids.length; i++) {
+      if (this.asteroids[i] !== object) {
+        remainingAsteroids.push(this.asteroids[i]);
+      }
     }
-  }
 
-  this.asteroids = remainingAsteroids;
-};
+    this.asteroids = remainingAsteroids;
 
-Game.prototype.removeBullet = function(bullet) {
-  let remainingBullets = [];
+  } else if (object instanceof Bullet) {
+    let remainingBullets = [];
 
-  for (let i = 0; i < this.bullets.length; i++) {
-    if (this.bullets[i] !== bullet) {
-      remainingBullets.push(this.bullets[i]);
+    for (let i = 0; i < this.bullets.length; i++) {
+      if (this.bullets[i] !== object) {
+        remainingBullets.push(this.bullets[i]);
+      }
     }
-  }
 
-  this.bullets = remainingBullets;
+    this.bullets = remainingBullets;
+  }
 };
 
 Game.prototype.step = function() {

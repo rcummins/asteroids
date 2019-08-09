@@ -17,4 +17,8 @@ Bullet.COLOR = 'Red';
 
 Util.inherits(Bullet, MovingObject);
 
+Bullet.prototype.isWrappable = function() {
+  return false;
+};
+
 module.exports = Bullet;
