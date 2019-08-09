@@ -10,6 +10,7 @@ function Game() {
   this.addAsteroids();
 }
 
+Game.BACKGROUND_COLOR = 'Black';
 Game.DIM_X = 500;
 Game.DIM_Y = 500;
 Game.NUM_ASTEROIDS = 10;
@@ -45,7 +46,9 @@ Game.prototype.checkCollisions = function() {
 };
 
 Game.prototype.draw = function(ctx) {
-  ctx.clearRect(0, 0, 500, 500);
+  ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
+  ctx.fillStyle = Game.BACKGROUND_COLOR;
+  ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
 
   this.allObjects().forEach( function(object) {
     object.draw(ctx);
