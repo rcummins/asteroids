@@ -7,12 +7,12 @@ function Asteroid(game, pos) {
     this,
     {game: game,
       pos: pos,
-      vel: Util.randomVec(5),
+      vel: Util.randomVec(2),
       radius: Asteroid.RADIUS,
       color: Asteroid.COLOR});
 }
 
-Asteroid.RADIUS = 20;
+Asteroid.RADIUS = 15;
 Asteroid.COLOR = "gray";
 
 Util.inherits(Asteroid, MovingObject);

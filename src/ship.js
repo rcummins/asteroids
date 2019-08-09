@@ -12,7 +12,7 @@ function Ship(game, pos) {
   );
 }
 
-Ship.RADIUS = 20;
+Ship.RADIUS = 15;
 Ship.COLOR = 'Orange';
 
 Util.inherits(Ship, MovingObject);
@@ -20,6 +20,11 @@ Util.inherits(Ship, MovingObject);
 Ship.prototype.relocate = function() {
   this.pos = this.game.randomPosition();
   this.vel = [0, 0];
+};
+
+Ship.prototype.power = function(impulse) {
+  this.vel = [this.vel[0] + impulse[0], this.vel[1] + impulse[1]];
+  console.log(`new vel: ${this.vel}`);
 };
 
 module.exports = Ship;
