@@ -19,8 +19,19 @@ Game.prototype.addAsteroids = function() {
   }
 };
 
-Game.prototype.randomPosition = function() {
-  return [Game.DIM_X * Math.random(), Game.DIM_Y * Math.random()];
+Game.prototype.allObjects = function () {
+  return this.asteroids.concat([this.ship]);
+};
+
+Game.prototype.checkCollisions = function() {
+  let allObjects = this.allObjects();
+  for (let index1 = 0; index1 < allObjects.length; index1++) {
+    for (let index2 = index1 + 1; index2 < allObjects.length; index2++) {
+      if (allObjects[index1].isCollidedWith(allObjects[index2])) {
+        allObjects[index1].collideWith(allObjects[index2]);
+      }
+    }
+  }
 };
 
 Game.prototype.draw = function(ctx) {
@@ -37,7 +48,28 @@ Game.prototype.moveObjects = function() {
   });
 };
 
-Game.prototype.wrap = function(pos) {
+Game.prototype.randomPosition = function () {
+  return [Game.DIM_X * Math.random(), Game.DIM_Y * Math.random()];
+};
+
+Game.prototype.remove = function(asteroid) {
+  let remainingAsteroids = [];
+
+  for (let i = 0; i < this.asteroids.length; i++) {
+    if (this.asteroids[i] !== asteroid) {
+      remainingAsteroids.push(this.asteroids[i]);
+    }
+  }
+
+  this.asteroids = remainingAsteroids;
+};
+
+Game.prototype.step = function() {
+  this.moveObjects();
+  this.checkCollisions();
+};
+
+Game.prototype.wrap = function (pos) {
   let newPos = [];
 
   if (pos[0] < 0) {
@@ -57,38 +89,6 @@ Game.prototype.wrap = function(pos) {
   }
 
   return newPos;
-};
-
-Game.prototype.checkCollisions = function() {
-  let allObjects = this.allObjects();
-  for (let index1 = 0; index1 < allObjects.length; index1++) {
-    for (let index2 = index1 + 1; index2 < allObjects.length; index2++) {
-      if (allObjects[index1].isCollidedWith(allObjects[index2])) {
-        allObjects[index1].collideWith(allObjects[index2]);
-      }
-    }
-  }
-};
-
-Game.prototype.step = function() {
-  this.moveObjects();
-  this.checkCollisions();
-};
-
-Game.prototype.remove = function(asteroid) {
-  let remainingAsteroids = [];
-
-  for (let i = 0; i < this.asteroids.length; i++) {
-    if (this.asteroids[i] !== asteroid) {
-      remainingAsteroids.push(this.asteroids[i]);
-    }
-  }
-
-  this.asteroids = remainingAsteroids;
-};
-
-Game.prototype.allObjects = function() {
-  return this.asteroids.concat([this.ship]);
 };
 
 module.exports = Game;
